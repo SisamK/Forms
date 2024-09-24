@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form (POST Method)</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: rgb(204, 250, 234);
+            color: black;
+            text-align: center;
+        }
+        input[type="submit"] {
+            background-color: #3212e6;
+            color: rgb(12, 26, 1);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #ebe720;
+        }
+        #result {
+            display: none;
+        }
+        #goToForm {
+            display: none; 
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #3212e6;
+            color: rgb(12, 26, 1);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #goToForm:hover {
+            background-color: #ebe720;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>User Information Form (POST Method)</h2>
+    <form id="userForm" method="POST" action="#">
+      <label for="marital_status">Choose your marital status:</label>
+      <select id="marital_status" name="marital_status">
+        <option value="single">Single</option>
+        <option value="married">Married</option>
+        <option value="widow">Widow</option>
+        <option value="prefer_not_to_say">Prefer not to say</option>
+      </select><br><br>
+    
+      <label for="diabetes">Do you have any medical history of diabetes?</label><br>
+      <input type="radio" id="diabetes_yes" name="diabetes" value="yes">
+      <label for="diabetes_yes">Yes</label><br>
+      <input type="radio" id="diabetes_no" name="diabetes" value="no">
+      <label for="diabetes_no">No</label><br><br>
+    
+      <label for="feedback">Feedback for food delivery service:</label><br>
+      <textarea id="feedback" name="feedback" rows="4" cols="50" placeholder="Enter your feedback here"></textarea><br><br>
+    
+      <label for="sport">Select your favorite sport:</label>
+      <select id="sport" name="sport">
+        <option value="football">Football</option>
+        <option value="cricket">Cricket</option>
+        <option value="basketball">Basketball</option>
+        <option value="tennis">Tennis</option>
+        <option value="golf">Golf</option>
+        <option value="baseball">Baseball</option>
+        <option value="hockey">Hockey</option>
+        <option value="swimming">Swimming</option>
+      </select><br><br>
+    
+      <input type="submit" value="Submit">
+    </form>
+
+    <h3 id="submissionHeading" style="display:none;">Your Submission Results:</h3>
+    <div id="result"></div>
+    <button id="goToForm" onclick="goToForm()">Go to Form</button>
+
+    <script>
+      document.getElementById('userForm').addEventListener('submit', function(event) {
+        event.preventDefault(); 
+
+        const maritalStatus = document.getElementById('marital_status').value;
+        const diabetes = document.querySelector('input[name="diabetes"]:checked').value;
+        const feedback = document.getElementById('feedback').value;
+        const sport = document.getElementById('sport').value;
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `
+          <p><strong>Marital Status:</strong> ${maritalStatus}</p>
+          <p><strong>Medical history of diabetes:</strong> ${diabetes === 'yes' ? 'Yes' : 'No'}</p>
+          <p><strong>Feedback:</strong> ${feedback}</p>
+          <p><strong>Favorite Sport:</strong> ${sport}</p>
+        `;
+
+        document.getElementById('userForm').style.display = 'none';
+        resultDiv.style.display = 'block';
+        document.getElementById('submissionHeading').style.display = 'block';
+        document.getElementById('goToForm').style.display = 'inline'; // Show "Go to Form" button
+      });
+
+      function goToForm() {
+        document.getElementById('userForm').reset();
+        document.getElementById('userForm').style.display = 'block'; // Show the form again
+        document.getElementById('result').style.display = 'none'; // Hide results
+        document.getElementById('submissionHeading').style.display = 'none'; // Hide heading
+        document.getElementById('goToForm').style.display = 'none'; // Hide the button
+      }
+    </script>
+
+</body>
+</html>

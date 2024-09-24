@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Inquiry Form</title>
+  <style>
+    body {
+      font-family: 'Courier New', Courier, monospace;
+      background-color: rgb(204, 250, 234);
+      color: black;
+      text-align: center;
+    }
+    input[type="submit"] {
+      background-color: #3212e6;
+      color: rgb(12, 26, 1);
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+    input[type="submit"]:hover {
+      background-color: #ebe720;
+    }
+    #result {
+      display: none;
+    }
+    #goToForm {
+      display: none; 
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #3212e6;
+      color: rgb(12, 26, 1);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #goToForm:hover {
+      background-color: #ebe720;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Food Inquiry Form (GET Method)</h2>
+  <form id="foodForm">
+    <label for="bestfood">Best Food:</label>
+    <input type="text" id="bestfood" name="bestfood" placeholder="Enter your favorite food" required><br><br>
+
+    <label for="cuisine">Favorite Cuisine:</label>
+    <select id="cuisine" name="cuisine">
+      <option value="italian">Italian</option>
+      <option value="indian">Indian</option>
+      <option value="mexican">Mexican</option>
+      <option value="chinese">Chinese</option>
+    </select><br><br>
+
+    <label for="spicy">Do you like spicy food?</label><br>
+    <input type="radio" id="spicy_yes" name="spicy" value="yes" required>
+    <label for="spicy_yes">Yes</label><br>
+    <input type="radio" id="spicy_no" name="spicy" value="no">
+    <label for="spicy_no">No</label><br><br>
+
+    <label for="dessert">Do you like desserts?</label>
+    <input type="checkbox" id="dessert" name="dessert" value="yes"><br><br>
+    <label for="feedback">Write about a food or dessert which surprised you.</label><br>
+    <textarea id="thoughts" name="thoughts" rows="4" cols="50" placeholder="Enter your thought here"></textarea><br><br>
+  
+    <input type="submit" value="Submit">
+  </form>
+
+  <h3 id="submissionTitle" style="display: none;">Your submissions are:</h3>
+  <div id="result"></div>
+  <button id="goToForm" onclick="goToForm()">Go to Form</button>
+
+  <script>
+    document.getElementById('foodForm').addEventListener('submit', function(event) {
+      event.preventDefault(); 
+
+      const bestfood = document.getElementById('bestfood').value;
+      const cuisine = document.getElementById('cuisine').value;
+      const spicy = document.querySelector('input[name="spicy"]:checked').value;
+      const dessert = document.getElementById('dessert').checked ? 'Yes' : 'No';
+
+      const resultDiv = document.getElementById('result');
+      resultDiv.innerHTML = `
+        <p><strong>Best Food:</strong> ${bestfood}</p>
+        <p><strong>Favorite Cuisine:</strong> ${cuisine}</p>
+        <p><strong>Do you like spicy food?</strong> ${spicy === 'yes' ? 'Yes' : 'No'}</p>
+        <p><strong>Do you like desserts?</strong> ${dessert}</p>
+      `;
+      
+      document.getElementById('foodForm').style.display = 'none';
+      document.getElementById('submissionTitle').style.display = 'block';
+      resultDiv.style.display = 'block';
+
+      document.getElementById('goToForm').style.display = 'inline';
+    });
+
+    function goToForm() {
+      document.getElementById('foodForm').reset();
+      document.getElementById('foodForm').style.display = 'block'; 
+      document.getElementById('result').style.display = 'none'; 
+      document.getElementById('submissionTitle').style.display = 'none'; 
+      document.getElementById('goToForm').style.display = 'none'; // Hide the button
+    }
+  </script>
+
+</body>
+</html>
